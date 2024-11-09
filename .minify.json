@@ -1,5 +1,10 @@
 {
     "js": {
-        "type": "swc"
+        "type": "swc",
+        "swc": {
+            "compress": true,
+            "mangle": true,
+            "sourceMap": false
+        }
     }
 }

@@ -4,6 +4,7 @@ document.body.style.background = "grey";
 {
     const size = 10;
     const mul = 20;
+    const pad = 1;
 
     // init
     let canvas = document.createElement("canvas");
@@ -55,12 +56,6 @@ document.body.style.background = "grey";
         }
     };
 
-    function set_px(pos, color) {
-        ctx.fillStyle = color;
-        let rx = pos[0] * mul, ry = pos[1] * mul;
-        ctx.fillRect(rx, ry, mul, mul);
-    }
-
     function reset() {
         snake_tiles = [[Math.floor((size - 1) / 2), Math.floor((size - 1) / 2)]];
         xv = 0, yv = 0;
@@ -105,8 +100,31 @@ document.body.style.background = "grey";
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        for (let i = 0; i < snake_tiles.length; i++) set_px(snake_tiles[i], "white");
-        set_px(apple_tile, "red");
+        ctx.fillStyle = "white";
+        for (let i = 0; i < snake_tiles.length; i++) {
+            let a = snake_tiles[i];
+            let b = snake_tiles[i - 1];
+
+            if (i - 1 < 0) {
+                ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul - 2 * pad, mul - 2 * pad);
+            } else if (b[0] < a[0]) {
+                // next tile left
+                ctx.fillRect(a[0] * mul - pad, a[1] * mul + pad, mul, mul - 2 * pad);
+            } else if (b[0] > a[0]) {
+                // next tile right
+                ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul, mul - 2 * pad);
+            } else if (b[1] < a[1]) {
+                // next tile on top
+                ctx.fillRect(a[0] * mul + pad, a[1] * mul - pad, mul - 2 * pad, mul);
+            } else {
+                // next tile on bottom
+                ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul - 2 * pad, mul);
+            }
+        }
+
+        ctx.fillStyle = "red";
+        let rx = apple_tile[0] * mul, ry = apple_tile[1] * mul;
+        ctx.fillRect(rx, ry, mul, mul);
     }
 
     setInterval(tick, 500);

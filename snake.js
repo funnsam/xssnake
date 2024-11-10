@@ -88,12 +88,14 @@ document.body.style.background = "grey";
             snake_tiles.unshift(t);
             let jt = JSON.stringify(t);
 
-            if (snake_tiles.slice(1).some(a => jt == JSON.stringify(a))) {
-                reset();
-            } else if (jt == JSON.stringify(apple_tile)) {
+            if (jt == JSON.stringify(apple_tile)) {
                 repos_apple();
             } else {
                 snake_tiles.pop();
+            }
+
+            if (snake_tiles.slice(1).some(a => jt == JSON.stringify(a))) {
+                reset();
             }
         }
 

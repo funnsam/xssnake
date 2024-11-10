@@ -1,5 +1,5 @@
 document.body.innerHTML = "";
-document.body.style.background = "grey";
+document.body.style.background = "#24273a";
 
 {
     const size = 10;
@@ -8,11 +8,13 @@ document.body.style.background = "grey";
 
     // init
     let canvas = document.createElement("canvas");
-    let ctx = canvas.getContext("2d");
     canvas.width = size * mul;
     canvas.height = size * mul;
     canvas.style.imageRendering = "crisp-edges";
     document.body.appendChild(canvas);
+    document.body.appendChild(document.createElement("br"));
+
+    let ctx = canvas.getContext("2d");
 
     // lower index = newer
     // higher index = older
@@ -56,11 +58,17 @@ document.body.style.background = "grey";
         }
     };
 
+    let score = document.createElement("div");
+    score.style.color = "#cad3f5";
+    score.appendChild(document.createTextNode("0"));
+    document.body.appendChild(score);
+
     function reset() {
         snake_tiles = [[Math.floor((size - 1) / 2), Math.floor((size - 1) / 2)]];
         xv = 0, yv = 0;
         bxv = 0, byv = 0;
         repos_apple();
+        score.innerText = `${snake_tiles.length - 1}`;
     }
     reset();
 
@@ -90,6 +98,7 @@ document.body.style.background = "grey";
 
             if (jt == JSON.stringify(apple_tile)) {
                 repos_apple();
+                score.innerText = `${snake_tiles.length - 1}`;
             } else {
                 snake_tiles.pop();
             }

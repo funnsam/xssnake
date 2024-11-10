@@ -35,12 +35,9 @@
         let b = btns[i];
 
         let btn = create_elem("button");
-        // btn.style.width = btn.style.height = `${(size * mul + 2) / 3}px`;
-        btn.style.width = btn.style.height = "67.3px";
+        btn.style.width = btn.style.height = "65px";
+        btn.onclick = () => move_queue.push(b.v);
         btn.append(b.t);
-        btn.onclick = () => {
-            move_queue.push(b.v);
-        };
         body.append(btn);
 
         if (i == 0) {
@@ -73,7 +70,7 @@
         xv = 0, yv = 0;
         move_queue = [];
         repos_apple();
-        score.innerText = `Score: ${snake_tiles.length - 1}`;
+        score.innerText = "Score: 0";
     }
     reset();
 

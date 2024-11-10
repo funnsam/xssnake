@@ -2,6 +2,7 @@ let doc = document, body = doc.body, create_elem = (e) => doc.createElement(e), 
 body.innerHTML = "";
 body.style.textAlign = "center";
 body.style.font = "14pt monospace";
+body.style.height = doc.documentElement.style.height = "100%";
 
 let size = 10;
 let mul = 20;
@@ -61,8 +62,11 @@ body.onkeydown = (e) => {
 
 let score = create_elem("div");
 score.style.marginTop = "1rem";
+score.style.userSelect = "none";
 score.append(0);
 body.append(score);
+
+doc.querySelector("*").style.touchAction = "manipulation";
 
 function reset() {
     // snake_tiles = [[math.floor((size - 1) / 2), math.floor((size - 1) / 2)]];

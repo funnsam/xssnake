@@ -1,4 +1,4 @@
-# XSSnake — pure JS snake in 1871 bytes for XSS demonstration
+# XSSnake — pure JS snake in >2000 bytes for XSS demonstration
 ## Controls
 `WASD` or on-screen buttons
 

@@ -10,6 +10,7 @@ document.body.style.background = "#24273a";
     let canvas = document.createElement("canvas");
     canvas.width = size * mul;
     canvas.height = size * mul;
+    canvas.style.border = "1px solid #cad3f5";
     canvas.style.imageRendering = "crisp-edges";
     document.body.appendChild(canvas);
     document.body.appendChild(document.createElement("br"));
@@ -108,10 +109,10 @@ document.body.style.background = "#24273a";
             }
         }
 
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#24273a";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "#cad3f5";
         for (let i = 0; i < snake_tiles.length; i++) {
             let a = snake_tiles[i];
             let b = snake_tiles[i - 1];
@@ -133,7 +134,7 @@ document.body.style.background = "#24273a";
             }
         }
 
-        ctx.fillStyle = "red";
+        ctx.fillStyle = "#ed8796";
         let rx = apple_tile[0] * mul, ry = apple_tile[1] * mul;
         ctx.fillRect(rx, ry, mul, mul);
     }

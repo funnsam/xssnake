@@ -25,8 +25,8 @@ document.body.style.background = "#24273a";
     let bxv, byv;
 
     const btns = [
-        { code: "KeyW", text: "^", xv: 0, yv: -1 },
         { code: "KeyA", text: "<", xv: -1, yv: 0 },
+        { code: "KeyW", text: "^", xv: 0, yv: -1 },
         { code: "KeyS", text: "v", xv: 0, yv: 1 },
         { code: "KeyD", text: ">", xv: 1, yv: 0 },
     ];
@@ -35,6 +35,7 @@ document.body.style.background = "#24273a";
         let b = btns[i];
 
         let btn = document.createElement("button");
+        btn.style.width = `${(size * mul + 2) / btns.length}px`;
         btn.appendChild(document.createTextNode(b.text));
         btn.onclick = () => {
             if ((xv == b.xv && yv == b.yv) || (-xv == b.xv && -yv == b.yv)) return;

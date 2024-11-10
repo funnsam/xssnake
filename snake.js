@@ -109,18 +109,18 @@ document.body.style.background = "grey";
 
             if (i - 1 < 0) {
                 ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul - 2 * pad, mul - 2 * pad);
-            } else if (b[0] < a[0]) {
-                // next tile left
-                ctx.fillRect(a[0] * mul - pad, a[1] * mul + pad, mul, mul - 2 * pad);
-            } else if (b[0] > a[0]) {
-                // next tile right
-                ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul, mul - 2 * pad);
-            } else if (b[1] < a[1]) {
-                // next tile on top
-                ctx.fillRect(a[0] * mul + pad, a[1] * mul - pad, mul - 2 * pad, mul);
+                continue;
+            }
+
+            let xd = b[0] - a[0];
+            let yd = b[1] - a[1];
+
+            if (Math.abs(xd) > Math.abs(yd)) {
+                if (xd == -1 || xd > 1) ctx.fillRect(a[0] * mul - pad, a[1] * mul + pad, mul, mul - 2 * pad);
+                else ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul, mul - 2 * pad);
             } else {
-                // next tile on bottom
-                ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul - 2 * pad, mul);
+                if (yd == -1 || yd > 1) ctx.fillRect(a[0] * mul + pad, a[1] * mul - pad, mul - 2 * pad, mul);
+                else ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul - 2 * pad, mul);
             }
         }
 

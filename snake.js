@@ -7,7 +7,6 @@
 
     let size = 10;
     let mul = 20;
-    let pad = 1;
 
     // init
     let canvas = create_elem("canvas");
@@ -25,11 +24,11 @@
     let xv, yv;
     let move_queue;
 
-    const btns = [
-        { c: "KeyW", t: "^", v: [0, -1] },
-        { c: "KeyA", t: "<", v: [-1, 0] },
-        { c: "KeyS", t: "v", v: [0, 1] },
-        { c: "KeyD", t: ">", v: [1, 0] },
+    let btns = [
+        { c: "W", t: "^", v: [0, -1] },
+        { c: "A", t: "<", v: [-1, 0] },
+        { c: "S", t: "v", v: [0, 1] },
+        { c: "D", t: ">", v: [1, 0] },
     ];
 
     for (let i = 0; i < btns.length; i++) {
@@ -54,9 +53,8 @@
         for (let i = 0; i < btns.length; i++) {
             let b = btns[i];
 
-            if (e.code == b.c) {
+            if (e.code == "Key" + b.c) {
                 move_queue.push(b.v);
-                return;
             }
         }
     };
@@ -95,7 +93,7 @@
         if (move_queue.length > 0) {
             let m = move_queue.shift();
 
-            if (!((xv == m[0] && yv == m[1]) || (-xv == m[0] && -yv == m[1]))) {
+            if (-xv != m[0] || -yv != m[1]) {
                 xv = m[0]; yv = m[1];
             }
         }
@@ -131,7 +129,7 @@
             let b = snake_tiles[i - 1];
 
             if (i - 1 < 0) {
-                ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul - 2 * pad, mul - 2 * pad);
+                ctx.fillRect(a[0] * mul + 1, a[1] * mul + 1, mul - 2, mul - 2);
                 continue;
             }
 
@@ -139,11 +137,11 @@
             let yd = b[1] - a[1];
 
             if (math.abs(xd) > math.abs(yd)) {
-                if (xd == -1 || xd > 1) ctx.fillRect(a[0] * mul - pad, a[1] * mul + pad, mul, mul - 2 * pad);
-                else ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul, mul - 2 * pad);
+                if (xd == -1 || xd > 1) ctx.fillRect(a[0] * mul - 1, a[1] * mul + 1, mul, mul - 2);
+                else ctx.fillRect(a[0] * mul + 1, a[1] * mul + 1, mul, mul - 2);
             } else {
-                if (yd == -1 || yd > 1) ctx.fillRect(a[0] * mul + pad, a[1] * mul - pad, mul - 2 * pad, mul);
-                else ctx.fillRect(a[0] * mul + pad, a[1] * mul + pad, mul - 2 * pad, mul);
+                if (yd == -1 || yd > 1) ctx.fillRect(a[0] * mul + 1, a[1] * mul - 1, mul - 2, mul);
+                else ctx.fillRect(a[0] * mul + 1, a[1] * mul + 1, mul - 2, mul);
             }
         }
 

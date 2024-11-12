@@ -70,6 +70,8 @@
     doc.querySelector("*").style.touchAction = "manipulation";
 
     let repos_apple = () => {
+        score.innerText = `Score: ${snake_tiles.length - 1}`;
+
         for (;;) {
             let x = math.floor(math.random() * size);
             let y = math.floor(math.random() * size);
@@ -87,7 +89,6 @@
         xv = 0, yv = 0;
         move_queue = [];
         repos_apple();
-        score.innerText = "Score: 0";
     };
     reset();
 
@@ -100,26 +101,23 @@
             }
         }
 
-        if (xv != 0 || yv != 0) {
-            let t = structuredClone(snake_tiles[0]);
-            t[0] = (t[0] + xv) % size;
-            t[0] = t[0] >= 0 ? t[0] : size - 1;
-            t[1] = (t[1] + yv) % size;
-            t[1] = t[1] >= 0 ? t[1] : size - 1;
+        let t = structuredClone(snake_tiles[0]);
+        t[0] = (t[0] + xv) % size;
+        t[0] = t[0] >= 0 ? t[0] : size - 1;
+        t[1] = (t[1] + yv) % size;
+        t[1] = t[1] >= 0 ? t[1] : size - 1;
 
-            snake_tiles.unshift(t);
-            let jt = json_stringify(t);
+        snake_tiles.unshift(t);
+        let jt = json_stringify(t);
 
-            if (jt == json_stringify(apple_tile)) {
-                repos_apple();
-                score.innerText = `Score: ${snake_tiles.length - 1}`;
-            } else {
-                snake_tiles.pop();
-            }
+        if (jt == json_stringify(apple_tile)) {
+            repos_apple();
+        } else {
+            snake_tiles.pop();
+        }
 
-            if (snake_tiles.slice(1).some(a => jt == json_stringify(a))) {
-                reset();
-            }
+        if (snake_tiles.slice(1).some(a => jt == json_stringify(a))) {
+            reset();
         }
 
         ctx.fillStyle = body.style.background = "#24273a";

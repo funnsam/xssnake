@@ -35,7 +35,7 @@
         let b = btns[i];
 
         let btn = create_elem("button");
-        btn.style.width = btn.style.height = "65px";
+        btn.style.width = btn.style.height = "4rem";
         btn.onclick = () => move_queue.push(b.v);
         btn.append(b.t);
         body.append(btn);
@@ -121,25 +121,26 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         canvas.style.border = "1px solid" + (ctx.fillStyle = score.style.color = "#cad3f5");
+
+        let b;
         for (let i = 0; i < snake_tiles.length; i++) {
             let a = snake_tiles[i];
-            let b = snake_tiles[i - 1];
 
-            if (i - 1 < 0) {
-                ctx.fillRect(a[0] * mul + 1, a[1] * mul + 1, mul - 2, mul - 2);
-                continue;
-            }
-
-            let xd = b[0] - a[0];
-            let yd = b[1] - a[1];
-
-            if (math.abs(xd) > math.abs(yd)) {
-                if (xd == -1 || xd > 1) ctx.fillRect(a[0] * mul - 1, a[1] * mul + 1, mul, mul - 2);
-                else ctx.fillRect(a[0] * mul + 1, a[1] * mul + 1, mul, mul - 2);
+            if (b) {
+                let xd = b[0] - a[0];
+                let yd = b[1] - a[1];
+                let order = math.abs(xd) > math.abs(yd);
+                ctx.fillRect(
+                    a[0] * mul - (order ? 2 * (xd == -1 || xd > 1) - 1 : -1),
+                    a[1] * mul - (order ? -1 : 2 * (yd == -1 || yd > 1) - 1),
+                    mul - (order ? 0 : 2),
+                    mul - (order ? 2 : 0),
+                );
             } else {
-                if (yd == -1 || yd > 1) ctx.fillRect(a[0] * mul + 1, a[1] * mul - 1, mul - 2, mul);
-                else ctx.fillRect(a[0] * mul + 1, a[1] * mul + 1, mul - 2, mul);
+                ctx.fillRect(a[0] * mul + 1, a[1] * mul + 1, mul - 2, mul - 2);
             }
+
+            b = a;
         }
 
         ctx.fillStyle = "#ed8796";

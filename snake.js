@@ -64,17 +64,17 @@
 
     doc.querySelector("*").style.touchAction = "manipulation";
 
-    function reset() {
+    let reset = () => {
         // snake_tiles = [[math.floor((size - 1) / 2), math.floor((size - 1) / 2)]];
         snake_tiles = [[4, 4]];
         xv = 0, yv = 0;
         move_queue = [];
         repos_apple();
         score.innerText = "Score: 0";
-    }
+    };
     reset();
 
-    function repos_apple() {
+    let repos_apple = () => {
         for (;;) {
             let x = math.floor(math.random() * size);
             let y = math.floor(math.random() * size);
@@ -84,7 +84,7 @@
                 break;
             }
         }
-    }
+    };
 
     setInterval(() => {
         if (move_queue.length > 0) {
